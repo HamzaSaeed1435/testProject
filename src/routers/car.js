@@ -8,9 +8,13 @@ const router = new express.Router();
 router.get("/car", Auth, async (req, res) => {
   const owner = req.user._id;
   try {
+
     const car = await Car.find({ owner }).populate('owner', owner).populate('category');
     if (car && car.length > 0) {
-      res.status(200).json(car);
+      
+      res.status(200).json({
+        car
+      });
     } else {
       res.status(200).json('No Car found!');
     }

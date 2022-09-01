@@ -10,6 +10,7 @@ router.post('/users', async (req, res) => {
 
     try {
      await user.save()
+     await user.SendEmail(user.email)
         const token = await user.generateAuthToken()
         res.status(201).json({user, token})
     } catch (error) {
@@ -53,4 +54,10 @@ router.post('/users/logoutAll', Auth, async(req, res) => {
         res.status(500).json('Error logging out')        
     }
 })
+
+
+
+   
+   
+
 module.exports = router
